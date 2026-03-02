@@ -23,10 +23,11 @@ export default function Onboarding() {
   const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
   const [memoryString, setMemoryString]= useState('')
   const [realitycheck, setRealityCheck] = useState("")
+  const [loading, setLoading]=useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
-  
+  setLoading(true)
   const result = await analyzeBreakup(formData);
 
  
@@ -36,11 +37,13 @@ export default function Onboarding() {
     setRealityCheck(result.data.realityChecks)
     setShowForm1(false);
     setShowForm2(true)
+    setLoading(false)
 
   }
 };
 const handledbData = async (e: React.FormEvent)=> {
   e.preventDefault();
+  setLoading(true)
  const manualGoals = formdata2
     .split(',') 
     .map(task => task.trim())
@@ -49,10 +52,12 @@ const handledbData = async (e: React.FormEvent)=> {
   const finalGoalsArray = [...selectedGoals, ...manualGoals];
   const datatosave = await saveRecoveryData(memoryString, realitycheck, finalGoalsArray, note, formData.biggestChallenge)
   if (datatosave.success){
+    sessionStorage.setItem("memoryKey", memoryString)
     console.log("data save successfull")
+    setLoading(false)
     router.push('/dashboard')
   }
-  sessionStorage.setItem("memorykey", memoryString)
+ 
 };
 const toggleGoal = (goal: string) => {
   setSelectedGoals((prev) => 
@@ -159,10 +164,11 @@ const toggleGoal = (goal: string) => {
               onChange={(e) => setFormData({...formData, rawStory: e.target.value})}
             ></textarea>
           </div>
-
+       
           <button 
             type="submit"
-            className="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-2xl transition-all shadow-lg shadow-indigo-500/10 active:scale-[0.98]"
+            className="w-full py-4 disabled:opacity-50 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-2xl transition-all shadow-lg shadow-indigo-500/10 active:scale-[0.98]"
+            disabled={loading}
           >
             Generate My Blueprint
           </button>
@@ -254,7 +260,8 @@ const toggleGoal = (goal: string) => {
 
         <button 
           onClick={handledbData}
-          className="w-full py-4 bg-white text-black font-bold rounded-2xl hover:bg-rose-50 transition-all active:scale-[0.98]"
+          className="w-full disabled:opacity-50 py-4 bg-white text-black font-bold rounded-2xl hover:bg-rose-50 transition-all active:scale-[0.98]"
+          disabled={loading}
         >
           Commit to My Future
         </button>
