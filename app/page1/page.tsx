@@ -65,7 +65,7 @@ const toggleGoal = (goal: string) => {
     <div>
       <head>
         <title>FromUStoMe | Your Breakup Reality Check</title>
-        <link rel="icon" href="/logo.jpg" />
+        <link rel="icon" href="./logo.jpg" />
         <meta name="description" content="A student project to help you move on." />
       </head>
     

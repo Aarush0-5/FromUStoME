@@ -24,7 +24,14 @@ export default function Home() {
     setConsent(false)
   }
   return (
-    consent ?  <div className="max-w-2xl mx-auto my-12 bg-white p-8 rounded-3xl shadow-sm border border-gray-100 font-sans">
+    consent ?  
+    <div>
+       <head>
+        <title>FromUStoMe | Your Breakup Reality Check</title>
+        <link rel="icon" href="./logo.jpg" />
+        <meta name="description" content="A student project to help you move on." />
+      </head>
+    <div className="max-w-2xl mx-auto my-12 bg-white p-8 rounded-3xl shadow-sm border border-gray-100 font-sans">
     
       <div className="mb-8 text-center">
         <div className="inline-flex items-center justify-center w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full mb-4">
@@ -82,11 +89,12 @@ export default function Home() {
         <button className="hover:text-red-600 hover:font-bold " onClick={hideDisclaimer}>I understand</button>
       </div>
       
-    </div> :
+    </div> 
+    </div>:
     <div>
        <head>
         <title>FromUStoMe | Your Breakup Reality Check</title>
-        <link rel="icon" href="/logo.jpg" />
+        <link rel="icon" href="./logo.jpg" />
         <meta name="description" content="A student project to help you move on." />
       </head>
     <main className="min-h-screen bg-[#020617] flex flex-col items-center justify-center p-6 text-center relative overflow-hidden">
