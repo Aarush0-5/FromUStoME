@@ -1,6 +1,5 @@
 "use server"
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import DOMPurify from "isomorphic-dompurify"
 
 interface formData{
     duration: string;
@@ -14,8 +13,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 
 export async function analyzeBreakup(formData: formData) {
   try {
-    const cleanChallenge = DOMPurify.sanitize(formData.biggestChallenge)
-    const cleanStory = DOMPurify.sanitize(formData.rawStory)
+  
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite", generationConfig: { responseMimeType: "application/json" } });
 
     const prompt = `
@@ -26,9 +24,9 @@ export async function analyzeBreakup(formData: formData) {
       - Who ended it: ${formData.initiator}
       - How it ended: ${formData.endtype}
       - Contact Status: ${formData.contactStatus}
-      - Biggest challenge of the breakup: ${cleanChallenge}
+      - Biggest challenge of the breakup: ${formData.biggestChallenge}
       
-      User's Story: """${cleanStory}"""
+      User's Story: """${formData.rawStory}"""
 
       Provide exactly 6 "Reality Checks" (harsh truths the user needs to hear to stay away from their ex) and 
       And one sweet note addressing the user in a personal way. Along with this based on their personal story suggest 3 goals they can set to overcome it, keep the goals smaller and achieveable which helps them heal and significant enough to feel growth.

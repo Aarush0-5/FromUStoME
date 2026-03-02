@@ -1,7 +1,7 @@
 "use server"
 
 import clientPromise from "./mongo";
-import DOMPurify from "isomorphic-dompurify"
+
 
 export async function saveRecoveryData(memoryKey: string, reasons: string, goals: string[], note: string, mainReason: string) {
   const client = await clientPromise;
@@ -9,24 +9,17 @@ export async function saveRecoveryData(memoryKey: string, reasons: string, goals
   
   
   const safeMemoryKey = String(memoryKey); 
-  const safeReasons = DOMPurify.sanitize(reasons);
-  const safeNote = DOMPurify.sanitize(note);
-  const safeMainReason = DOMPurify.sanitize(mainReason);
   
   
-  const safeGoals = goals.map(g => ({ 
-    text: DOMPurify.sanitize(String(g)), 
-    completed: false 
-  }));
 
   const result = await db.collection("users").updateOne(
     { memoryKey: safeMemoryKey }, 
     { 
       $set: { 
-        reasons: safeReasons, 
-        goals: safeGoals,     
-        mainReason: safeMainReason,
-        note: safeNote
+        reasons: reasons, 
+        goals: goals,     
+        mainReason: mainReason,
+        note: note
       },
     },
     { upsert: true }
@@ -58,14 +51,11 @@ export async function updateGoalStatus(memoryKey: string, updatedGoals: any[]) {
     const db = client.db("Healing_project");
     
     
-    const safeGoals = updatedGoals.map(g => ({
-      text: DOMPurify.sanitize(String(g.text)),
-      completed: Boolean(g.completed)
-    }));
+   
 
     const result = await db.collection("users").updateOne(
       { memoryKey: String(memoryKey) },
-      { $set: { goals: safeGoals } }
+      { $set: { goals: updatedGoals } }
     );
 
     return { success: result.modifiedCount > 0 };
