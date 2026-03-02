@@ -173,7 +173,7 @@ const Certificate = ({ memoryKey, userNote, hurdle, completedTasks, onClose }: {
     <div> 
       <head>
         <title>FromUStoMe | Your Breakup Reality Check</title>
-        <link rel="icon" href="./logo.jpg" />
+        <link rel="icon" href="/logo.jpg" />
         <meta name="description" content="A student project to help you move on." />
       </head>
     <main className={`transition-all duration-[4000ms] min-h-screen ease-in-out ${

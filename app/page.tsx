@@ -28,7 +28,7 @@ export default function Home() {
     <div>
        <head>
         <title>FromUStoMe | Your Breakup Reality Check</title>
-        <link rel="icon" href="./logo.jpg" />
+        <link rel="icon" href="/logo.jpg" />
         <meta name="description" content="A student project to help you move on." />
       </head>
     <div className="max-w-2xl mx-auto my-12 bg-white p-8 rounded-3xl shadow-sm border border-gray-100 font-sans">
@@ -94,7 +94,7 @@ export default function Home() {
     <div>
        <head>
         <title>FromUStoMe | Your Breakup Reality Check</title>
-        <link rel="icon" href="./logo.jpg" />
+        <link rel="icon" href="/logo.jpg" />
         <meta name="description" content="A student project to help you move on." />
       </head>
     <main className="min-h-screen bg-[#020617] flex flex-col items-center justify-center p-6 text-center relative overflow-hidden">
