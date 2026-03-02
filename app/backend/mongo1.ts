@@ -31,10 +31,9 @@ export async function saveRecoveryData(memoryKey: string, reasons: string, goals
 export async function getRecoveryData(memoryKey: string) {
   const client = await clientPromise;
   const db = client.db("Healing_project");
-  const safeKey = String(memoryKey);
   
   const user = await db.collection("users").findOne({ 
-    memoryKey: safeKey
+    memoryKey: String(memoryKey)
   });
 
   if (!user) return null;
