@@ -22,8 +22,8 @@ export default function Onboarding() {
   });
   const [formdata2, setFormData2]=useState<string>('')
   const [note,setNote]=useState("")
-  const [showform1, setShowForm1]=useState(false) 
-  const [showform2, setShowForm2]=useState(true)
+  const [showform1, setShowForm1]=useState(true) 
+  const [showform2, setShowForm2]=useState(false)
   const [personalMessage, setPersonalMessage]=useState('')
   const [goalinput, setGoalInput]=useState<string[]>()
   const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
