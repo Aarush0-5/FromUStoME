@@ -22,8 +22,8 @@ export default function Onboarding() {
   });
   const [formdata2, setFormData2]=useState<string>('')
   const [note,setNote]=useState("")
-  const [showform1, setShowForm1]=useState(true) 
-  const [showform2, setShowForm2]=useState(false)
+  const [showform1, setShowForm1]=useState(false) 
+  const [showform2, setShowForm2]=useState(true)
   const [personalMessage, setPersonalMessage]=useState('')
   const [goalinput, setGoalInput]=useState<string[]>()
   const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
@@ -31,6 +31,7 @@ export default function Onboarding() {
   const [realitycheck, setRealityCheck] = useState("")
   const [loading, setLoading]=useState(false)
   const [customGoals, setCustomGoals] = useState([{ text: "", targetDays: 0}]);
+  const [nameTaken, setNametaken]= useState(false)
   const triggers = [{
     id: "social",
     title: "Digital Ghosting",
@@ -86,11 +87,12 @@ export default function Onboarding() {
     setShowForm1(false);
     setShowForm2(true)
     setLoading(false)
-
+    
   }
 };
 const handledbData = async (e: React.FormEvent) => {
     e.preventDefault();
+    setNametaken(false)
     setLoading(true);
     const validCustomGoals = customGoals
     .filter(g => g.text.trim() !== "")
@@ -115,6 +117,9 @@ const handledbData = async (e: React.FormEvent) => {
       sessionStorage.setItem("memoryKey", memoryString);
       setLoading(false);
       router.push('/dashboard');
+    } else {
+      setNametaken(true)
+      setLoading(false)
     }
   };
 
@@ -361,13 +366,23 @@ const toggleGoal = (goal: string) => {
               placeholder="Write a small note to your future self..."
               onChange={(e) => setNote(e.target.value)} 
             />
-
-            <input 
+           {nameTaken ? <div>
+             <h2 className="text-center mt-2 font-bold text-xl text-red-500 mb-2">UserName already taken! Try Something else</h2>
+              <input 
               type="text" 
               placeholder="Your Memory Key" 
               className="w-full bg-transparent border-b border-slate-700 py-3 text-xl outline-none focus:border-rose-500"
               onChange={(e) => setMemoryString(e.target.value)}
             />
+           </div> : <div>
+              <input 
+              type="text" 
+              placeholder="Your Memory Key" 
+              className="w-full bg-transparent border-b border-slate-700 py-3 text-xl outline-none focus:border-rose-500"
+              onChange={(e) => setMemoryString(e.target.value)}
+            />
+            </div>}  
+            
 
             <button 
               onClick={handledbData}

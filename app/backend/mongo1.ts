@@ -33,24 +33,28 @@ export async function savePhaseGoals(memoryKey: string, goalId: string) {
 export async function saveRecoveryData(memoryKey: string, reasons: string, goals: CustomGoal[], note: string, ncStartDate: string, selectedTriggers: string[], initialUrgeLevel: number,currentUrgeLevel: number ,advice: string) {
   const client = await clientPromise;
   const db = client.db("Healing_project"); 
-  const safeMemoryKey = String(memoryKey); 
-  const result = await db.collection("users").updateOne(
-    { memoryKey: safeMemoryKey }, 
-    { 
-      $set: { 
-        reasons: reasons, 
-        goals: goals,     
-        ncStartDate: ncStartDate,
-        selectedTriggers: selectedTriggers,
-        completedActionIds: [],
-        initialUrgeLevel: initialUrgeLevel,
-        currentUrgeLevel: currentUrgeLevel,
-        note: note,
-        advice: advice,
-      },
-    },
-    { upsert: true }
-  );
+  const collection = db.collection("users");
+  const safeMemoryKey = String(memoryKey).trim(); 
+  const existingUser = await collection.findOne({ memoryKey: safeMemoryKey });
+
+  if (existingUser) {
+    return { 
+      success: false, 
+      error: "This keyword is already taken. Please choose a unique one." 
+    };
+  }
+ await collection.insertOne({ 
+    memoryKey: safeMemoryKey, 
+    reasons, 
+    goals,     
+    ncStartDate,
+    selectedTriggers,
+    completedActionIds: [],
+    initialUrgeLevel,
+    currentUrgeLevel,
+    note,
+    advice,
+  });
 
   return { success: true };
 }
