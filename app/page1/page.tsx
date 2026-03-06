@@ -233,7 +233,7 @@ const toggleGoal = (goal: string) => {
             </div>
 
             <div className="flex flex-col gap-3">
-                  <label className="text-sm font-medium text-slate-400">Select all that apply to you:</label>
+                  <label className="text-sm font-medium text-slate-400">What are your major triggers? Select all that apply to you:</label>
                   <div className="flex flex-row flex-wrap gap-2">
                     {triggers.map((trigger) => {
                       const isSelected = formData.selectedTriggers?.includes(trigger.id);
@@ -307,7 +307,8 @@ const toggleGoal = (goal: string) => {
      {showform2 && (
         <div className="w-full max-w-2xl space-y-8 animate-in fade-in slide-in-from-bottom-8">
           <div className="p-8 rounded-3xl bg-[#020617]/90 border border-white/5 shadow-2xl">
-            <h2 className="text-xl italic text-center">"{personalMessage}"</h2>
+           <h2 className="flex jusitfy-center">✨</h2>
+            <h2 className="text-xl italic text-center">"{personalMessage} "</h2>
           </div>
 
           <div className="space-y-6">
