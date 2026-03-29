@@ -97,6 +97,7 @@ export default function home_of_myriad () {
     }
     } catch(error) {
       console.log(error)
+      alert("Please try again")
     }
    
   }
