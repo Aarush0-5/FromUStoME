@@ -60,7 +60,7 @@ export default function Home() {
                   02
                 </div>
                 <div>
-                  <h2 className="text-2xl font-light tracking-wider text-white mb-3">The Myriad Project</h2>
+                  <h2 className="text-2xl font-light tracking-wider text-white mb-3">The Myriad</h2>
                   <p className="text-slate-400 leading-relaxed text-sm font-light">
                     Harnessing 10,000 simulations to navigate life-design choices. Utilize IPIP psychometrics and behavioral modeling to visualize the trajectory of your decisions before they are made.
                   </p>
